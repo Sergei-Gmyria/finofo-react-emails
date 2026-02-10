@@ -6,3 +6,13 @@ export const templateVar = (varKey: VarKey): string =>
 	getEmailAssetMode() === "cid"
 		? `{{ ${VARS[varKey].var} }}`
 		: VARS[varKey].local;
+
+export const templateNoBraceVar = (varKey: VarKey): string =>
+	getEmailAssetMode() === "cid"
+		? `${VARS[varKey].var}`
+		: VARS[varKey].local;
+
+export const templateSingleBraceVar = (varKey: VarKey): string =>
+	getEmailAssetMode() === "cid"
+		? `{ ${VARS[varKey].var} }`
+		: VARS[varKey].local;
