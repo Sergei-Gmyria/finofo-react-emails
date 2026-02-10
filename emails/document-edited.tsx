@@ -5,12 +5,12 @@ export default function DocumentEdited() {
   const type = templateVar('documentLinkedDoctype');
   const filename = templateVar('documentLinkedFilename');
   const actor = templateVar('actorName');
-	const id = templateVar('documentLinkedId');
+	const urlPath = templateVar('documentUrlPath');
 	return <BasicEmailFrame
 		previewText="Document edited"
 		title="Document has been edited"
 		actionName="Go to Edited Document"
-		actionUrl={`${COMPANY_URL}/${type}/${id}`}
+		actionUrl={`${COMPANY_URL}/${urlPath}`}
 	>
 		{actor}{' '}
     edited your {type}{' '}

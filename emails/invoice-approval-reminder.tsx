@@ -22,9 +22,9 @@ const LIQUID_ASSIGN_AND_LOOP = `{% assign total_activities = activities | size %
   {% endunless %}
 {% endfor %}`;
 
-const APPROVAL_INVOICE_TAB_URL = `${COMPANY_URL}/documents/invoices?tab=IN_APPROVAL`;
+const INBOX_URL = `${COMPANY_URL}/inbox`;
 
-export default function InvoiceSentForApproval() {
+export default function InvoiceApprovalReminder() {
   const activitiesJson = templateVar("invoiceApprovalActivities");
   const arr = safeParse<Array<Activity>>(activitiesJson);
   const isCid = getEmailAssetMode() === "cid";
@@ -34,8 +34,8 @@ export default function InvoiceSentForApproval() {
 
   return (
     <BasicEmailFrame
-      previewText="Invoice Sent for Approval"
-      title="Invoice Sent for Approval"
+      previewText="Invoice Approval Reminder"
+      title="Invoice Approval Reminder"
       useSection
     >
       {isCid && <Liquid>{LIQUID_ASSIGN_AND_LOOP}</Liquid>}
@@ -43,26 +43,22 @@ export default function InvoiceSentForApproval() {
         {isCid ? (
           <>
             <BodyText marginBottom="14px">
-              Invoice
-              <Liquid>{`{% if total_activities > 1 %}<span>s</span>{% endif %}`}</Liquid>
-              <Liquid>{`<span> </span>`}</Liquid>
+              Reminder: Your approval is required for invoice
+              <Liquid>{`{% if total_activities > 1 %}<span>s: </span>{% endif %}`}</Liquid>
+              <Liquid>{`<span> : </span>`}</Liquid>
               <Liquid>{`{{ invoice_labels }}`}</Liquid>
-              <Liquid>{`{% if total_activities > 1 %} have been sent for approval. {% else %} has been sent for approval.{% endif %}`}</Liquid>
             </BodyText>
-            <ButtonLink href={APPROVAL_INVOICE_TAB_URL}>
-              View Invoice
-              <Liquid>{`{% if total_activities > 1 %}s{% endif %}`}</Liquid>
-            </ButtonLink>
+            <ButtonLink href={INBOX_URL}>View Inbox</ButtonLink>
           </>
         ) : (
           <>
             <BodyText marginBottom="14px">
-              Invoice{totalActivities > 1 ? "s" : ""} {invoiceLabelsPreview}{" "}
-              {totalActivities > 1 ? "have" : "has"} been sent for approval.
+              <b>Reminder:</b> Your approval is pending for invoice
+              {totalActivities > 1 ? "s" : ""}
+              {" : "}
+              {invoiceLabelsPreview}
             </BodyText>
-            <ButtonLink href={APPROVAL_INVOICE_TAB_URL}>
-              View Invoice{totalActivities > 1 ? "s" : ""}
-            </ButtonLink>
+            <ButtonLink href={INBOX_URL}>View Inbox</ButtonLink>
           </>
         )}
       </div>

@@ -13,20 +13,23 @@ export const LiquidIf: React.FC<{
 	js: () => boolean;
 	children: React.ReactNode;
 	else?: React.ReactNode;
-}> = ({ liquid, children, else: elseClause, js }) => {
+	strip?: boolean;
+}> = ({ liquid, children, else: elseClause, js, strip  }) => {
 	const mode = getEmailAssetMode();
 	if (mode === "cid") {
+		const open = strip ? "{%-" : "{%";
+		const close = strip ? "-%}" : "%}";
 		return (
 			<>
-				<Liquid>{`{% if ${liquid} %}`}</Liquid>
+				<Liquid>{`${open} if ${liquid} ${close}`}</Liquid>
 				{children}
 				{elseClause && (
 					<>
-						<Liquid>{`{% else %}`}</Liquid>
+						<Liquid>{`${open} else ${close}`}</Liquid>
 						{elseClause}
 					</>
 				)}
-				<Liquid>{`{% endif %}`}</Liquid>
+				<Liquid>{`${open} endif ${close}`}</Liquid>
 			</>
 		);
 	}
