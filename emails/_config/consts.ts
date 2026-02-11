@@ -150,6 +150,10 @@ export const VARS = {
 		local: '1234',
 		var: 'data.email_data.document_id'
 	},
+	documentUrlPath: {
+		local: 'invoice-document/1234',
+		var: 'data.email_data.url_path'
+	  },
 
 
 	// PO Cancelled
@@ -169,6 +173,10 @@ export const VARS = {
 		local: '1234',
 		var: 'data.email_data.document_id'
 	},
+	poCancelledPurchaseOrderId: {
+		local: '1234',
+		var: 'data.email_data.purchase_order_id'
+	  },
 
 	// Full / partial payment failure
 	paymentFailureInvoice: {
@@ -197,10 +205,10 @@ export const VARS = {
 	// Footer
 	helpUrl: {
 		local: localUrl,
-		var: "data.email_data.help_url",
+		var: "vars.help_url",
 	},
 	privacyPolicyUrl: {
 		local: localUrl,
-		var: "data.email_data.privacy_policy_url",
+		var: "vars.privacy_policy_url",
 	},
 } as const;

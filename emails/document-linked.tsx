@@ -5,12 +5,12 @@ export default function DocumentLinked() {
   const type = templateVar('documentLinkedDoctype');
   const filename = templateVar('documentLinkedFilename');
   const actor = templateVar('actorName');
-	const id = templateVar('documentLinkedId');
+	const urlPath = templateVar('documentUrlPath');
 	return <BasicEmailFrame
 		previewText="Document linked"
 		title="Document has been linked"
 		actionName="Go to Linked Document"
-		actionUrl={`${COMPANY_URL}/${type}/${id}`}
+		actionUrl={`${COMPANY_URL}/${urlPath}`}
 	>
 		{actor}{' '}
     linked your {type}{' '}
